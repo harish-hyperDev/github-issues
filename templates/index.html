@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iReport</title>
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .table-container {
+            margin-top: 40px;
+        }
+        .issue-state {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            border-radius: 12px;
+            padding: 5px 10px;
+            text-transform: capitalize;
+        }
+        .open {
+            background-color: #28a745;
+        }
+        .closed {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center mb-4">iReport</h1>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issues %}
+                <tr>
+                    <td>{{ issue['number'] }}</td>
+                    <td>
+                        <a href="#" class="text-primary">
+                            {{ issue['title'] }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ issue['body'][:100] }}{% if issue['body'] and len(issue['body']) > 100 %}...{% end %}
+                    </td>
+                    <td>
+                        <span class="issue-state {% if issue['state'] == 'open' %}open{% else %}closed{% end %}">
+                            {{ issue['state'] }}
+                        </span>
+                    </td>
+                </tr>
+                {% end %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS + Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
